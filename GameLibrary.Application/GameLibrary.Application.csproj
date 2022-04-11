@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<WarningsAsErrors>Nullable</WarningsAsErrors>
+	</PropertyGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\GameLibrary.Data\GameLibrary.Data.csproj" />
+	  <ProjectReference Include="..\GameLibrary.Domain\GameLibrary.Domain.csproj" />
+	</ItemGroup>
+</Project>

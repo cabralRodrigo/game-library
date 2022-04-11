@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<WarningsAsErrors>Nullable</WarningsAsErrors>
+	</PropertyGroup>
+	<ItemGroup>
+	  <Compile Remove=".config\**" />
+	  <EmbeddedResource Remove=".config\**" />
+	  <None Remove=".config\**" />
+	</ItemGroup>
+	<ItemGroup>
+	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.3" />
+	  <PackageReference Include="StronglyTypedId" Version="1.0.0-beta06" />
+	</ItemGroup>
+</Project>

@@ -1,0 +1,20 @@
+﻿<Window x:Class="GameLibrary.UI.Windows.SplashWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GameLibrary.UI.Windows"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance {x:Type local:SplashViewModel}}"
+        Title="Game Library"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Height="30"
+        Width="200">
+    <StackPanel VerticalAlignment="Center">
+        <ProgressBar IsIndeterminate="True" />
+        <TextBlock HorizontalAlignment="Center"
+                   VerticalAlignment="Center" Text="{Binding Message}" />
+    </StackPanel>
+</Window>
