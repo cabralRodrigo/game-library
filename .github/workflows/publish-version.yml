@@ -1,0 +1,65 @@
+name: Publish
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  publish:
+
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+        
+    - name: Setup version and hash environment variables
+      shell: pwsh
+      env:
+        REF: ${{ github.ref }}
+      run: |
+        $ACTION_VERSION = $env:REF -replace "refs/tags/v", ""
+        $ACTION_HASH = git rev-parse --short HEAD
+
+        Write-Host "ACTION_VERSION = $ACTION_VERSION"
+        Write-Host "ACTION_HASH = $ACTION_HASH"
+
+        "ACTION_VERSION=$ACTION_VERSION" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+        "ACTION_HASH=$ACTION_HASH" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+    
+    - name: Apply tag version and commit hash
+      shell: pwsh
+      env:
+        REF: ${{ github.ref }}
+      run: |
+        (Get-Content ./SharedAssemblyInfo.cs) -replace 'AssemblyFileVersion\(\"1\.0\.0\"\)', "AssemblyFileVersion(`"$env:ACTION_VERSION`")" | Set-Content ./source/api/SharedAssemblyInfo.cs
+        (Get-Content ./SharedAssemblyInfo.cs) -replace 'AssemblyInformationalVersion\(\"1\.0\.0\"\)', "AssemblyInformationalVersion(`"$env:ACTION_VERSION+$env:ACTION_HASH`")" | Set-Content ./source/api/SharedAssemblyInfo.cs
+        (Get-Content ./SharedAssemblyInfo.cs) -replace 'AssemblyVersion\(\"1\.0\.0\"\)', "AssemblyVersion(`"$env:ACTION_VERSION`")" | Set-Content ./source/api/SharedAssemblyInfo.cs
+
+        Write-Host "Current SharedAssemblyInfo.cs"
+        Write-Host (Get-Content ./source/api/SharedAssemblyInfo.cs)
+      
+    - name: Publish
+      run: dotnet publish .\GameLibrary.UI\GameLibrary.UI.csproj --configuration Release -o publish-output -r win-x64 --no-self-contained
+      
+    - name: Remove pdb files
+      shell: pwsh
+      run: Get-ChildItem .\publish-output\ -Filter "*.pdb" | Remove-Item
+
+    - name: Compress build output
+      shell: pwsh
+      run: Compress-Archive -Path ./publish-output/* -DestinationPath ./publish-output.zip -CompressionLevel Optimal
+
+    - name: Upload binaries to release
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: ./publish-output.zip
+        tag: ${{ github.ref }}
+        asset_name: game-libray.$tag.zip
