@@ -10,6 +10,8 @@ namespace GameLibrary.UI
             base.OnStartup(e);
 
             var container = new Container();
+            var logger = container.Resolve().Value;
+            logger.Info("Initializing");
 
             var splash = (await container.ResolveAsync<SplashWindow>()).Value;
             this.MainWindow = splash;
@@ -20,6 +22,9 @@ namespace GameLibrary.UI
             this.MainWindow = (await container.ResolveAsync<MainWindow>()).Value;
             this.MainWindow.Show();
             splash.Close();
+            
+            logger.Info("Initializion complete");
+            this.Exit += (_, _) => logger.Info("Exiting");
         }
     }
 }
