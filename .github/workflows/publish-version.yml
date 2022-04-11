@@ -43,7 +43,7 @@ jobs:
         (Get-Content ./SharedAssemblyInfo.cs) -replace 'AssemblyVersion\(\"1\.0\.0\"\)', "AssemblyVersion(`"$env:ACTION_VERSION`")" | Set-Content ./SharedAssemblyInfo.cs
 
         Write-Host "Current SharedAssemblyInfo.cs"
-        Write-Host (Get-Content ./source/api/SharedAssemblyInfo.cs)
+        Write-Host (Get-Content ./SharedAssemblyInfo.cs)
       
     - name: Publish
       run: dotnet publish .\GameLibrary.UI\GameLibrary.UI.csproj --configuration Release -o publish-output -r win-x64 --no-self-contained
