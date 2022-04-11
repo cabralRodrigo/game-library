@@ -38,9 +38,9 @@ jobs:
       env:
         REF: ${{ github.ref }}
       run: |
-        (Get-Content ./SharedAssemblyInfo.cs) -replace 'AssemblyFileVersion\(\"1\.0\.0\"\)', "AssemblyFileVersion(`"$env:ACTION_VERSION`")" | Set-Content ./source/api/SharedAssemblyInfo.cs
-        (Get-Content ./SharedAssemblyInfo.cs) -replace 'AssemblyInformationalVersion\(\"1\.0\.0\"\)', "AssemblyInformationalVersion(`"$env:ACTION_VERSION+$env:ACTION_HASH`")" | Set-Content ./source/api/SharedAssemblyInfo.cs
-        (Get-Content ./SharedAssemblyInfo.cs) -replace 'AssemblyVersion\(\"1\.0\.0\"\)', "AssemblyVersion(`"$env:ACTION_VERSION`")" | Set-Content ./source/api/SharedAssemblyInfo.cs
+        (Get-Content ./SharedAssemblyInfo.cs) -replace 'AssemblyFileVersion\(\"1\.0\.0\"\)', "AssemblyFileVersion(`"$env:ACTION_VERSION`")" | Set-Content ./SharedAssemblyInfo.cs
+        (Get-Content ./SharedAssemblyInfo.cs) -replace 'AssemblyInformationalVersion\(\"1\.0\.0\"\)', "AssemblyInformationalVersion(`"$env:ACTION_VERSION+$env:ACTION_HASH`")" | Set-Content ./SharedAssemblyInfo.cs
+        (Get-Content ./SharedAssemblyInfo.cs) -replace 'AssemblyVersion\(\"1\.0\.0\"\)', "AssemblyVersion(`"$env:ACTION_VERSION`")" | Set-Content ./SharedAssemblyInfo.cs
 
         Write-Host "Current SharedAssemblyInfo.cs"
         Write-Host (Get-Content ./source/api/SharedAssemblyInfo.cs)
