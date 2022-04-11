@@ -3,14 +3,15 @@
 		<TargetFramework>net6.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<WarningsAsErrors>Nullable</WarningsAsErrors>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 	</PropertyGroup>
+
 	<ItemGroup>
-	  <Compile Remove=".config\**" />
-	  <EmbeddedResource Remove=".config\**" />
-	  <None Remove=".config\**" />
+		<Compile Include="..\SharedAssemblyInfo.cs" Link="Properties\SharedAssemblyInfo.cs" />
 	</ItemGroup>
+
 	<ItemGroup>
-	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.3" />
-	  <PackageReference Include="StronglyTypedId" Version="1.0.0-beta06" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.3" />
+		<PackageReference Include="StronglyTypedId" Version="1.0.0-beta06" />
 	</ItemGroup>
 </Project>

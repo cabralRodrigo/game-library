@@ -3,7 +3,9 @@
 		<TargetFramework>net6.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<WarningsAsErrors>Nullable</WarningsAsErrors>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 	</PropertyGroup>
+	
 	<ItemGroup>
 	  <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.3">
 	    <PrivateAssets>all</PrivateAssets>
@@ -11,7 +13,9 @@
 	  </PackageReference>
 	  <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.3" />
 	</ItemGroup>
+	
 	<ItemGroup>
+	  <Compile Include="..\SharedAssemblyInfo.cs" Link="Properties\SharedAssemblyInfo.cs" />
 	  <ProjectReference Include="..\GameLibrary.Domain\GameLibrary.Domain.csproj" />
 	</ItemGroup>
 </Project>

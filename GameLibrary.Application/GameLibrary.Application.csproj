@@ -3,9 +3,12 @@
 		<TargetFramework>net6.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<WarningsAsErrors>Nullable</WarningsAsErrors>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 	</PropertyGroup>
+
 	<ItemGroup>
-	  <ProjectReference Include="..\GameLibrary.Data\GameLibrary.Data.csproj" />
-	  <ProjectReference Include="..\GameLibrary.Domain\GameLibrary.Domain.csproj" />
+		<Compile Include="..\SharedAssemblyInfo.cs" Link="Properties\SharedAssemblyInfo.cs" />
+		<ProjectReference Include="..\GameLibrary.Data\GameLibrary.Data.csproj" />
+		<ProjectReference Include="..\GameLibrary.Domain\GameLibrary.Domain.csproj" />
 	</ItemGroup>
 </Project>
